@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2025-01-19
-title: "RDB vs NoSQL"
+title: "[Dev] RDB vs NoSQL"
 tags: [DB, Database, Dev, Development, ]
 categories: [Development, Dev, ]
 ---

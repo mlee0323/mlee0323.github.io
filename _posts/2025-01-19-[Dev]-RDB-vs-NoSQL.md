@@ -3,7 +3,7 @@ layout: post
 date: 2025-01-19
 title: "[Dev] RDB vs NoSQL"
 tags: [DB, Database, Dev, Development, Github Actions, ]
-categories: [Development, Dev, CS, ]
+categories: [CS, ]
 ---
 
 

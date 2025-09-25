@@ -2,8 +2,8 @@
 layout: post
 date: 2025-01-23
 title: "[Dev] Call by reference vs Call by value"
-tags: [Dev, Development, JavaScript, ]
-categories: [CS, ]
+tags: [Dev, Development, JavaScript]
+categories: [CS]
 ---
 
 

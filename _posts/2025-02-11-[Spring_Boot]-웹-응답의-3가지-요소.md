@@ -2,8 +2,8 @@
 layout: post
 date: 2025-02-11
 title: "[Spring_Boot] 웹 응답의 3가지 요소"
-tags: [Spring Boot, Java, ]
-categories: [Spring Boot, ]
+tags: [Spring Boot, Java]
+categories: [Spring Boot]
 ---
 
 

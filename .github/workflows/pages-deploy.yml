@@ -8,7 +8,6 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -33,7 +32,7 @@ jobs:
       
       - uses: actions/setup-node@v4
         with:
-          node-version: "17"
+          node-version: "18"
 
       - run: npm install
 
@@ -62,7 +61,6 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-          # submodules: true
 
       - name: Setup Pages
         id: pages

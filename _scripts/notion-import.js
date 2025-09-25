@@ -4,8 +4,6 @@ const moment = require("moment");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
-// or
-// import {NotionToMarkdown} from "notion-to-md";
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -89,7 +87,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
     // tags
     let tags = [];
-    let ptags = r.properties?.["태그"]?.["multi_select"];
+    let ptags = r.properties?.["태그"]?.["multi_select"] || [];
     for (const t of ptags) {
       const n = t?.["name"];
       if (n) {
@@ -98,7 +96,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     }
     // categories
     let cats = [];
-    let pcats = r.properties?.["카테고리"]?.["multi_select"];
+    let pcats = r.properties?.["카테고리"]?.["multi_select"] || [];
     for (const t of pcats) {
       const n = t?.["name"];
       if (n) {
@@ -110,18 +108,10 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     let fmtags = "";
     let fmcats = "";
     if (tags.length > 0) {
-      fmtags += "\ntags: [";
-      for (const t of tags) {
-        fmtags += t + ", ";
-      }
-      fmtags += "]";
+      fmtags += "\ntags: [" + tags.join(", ") + "]";
     }
     if (cats.length > 0) {
-      fmcats += "\ncategories: [";
-      for (const t of cats) {
-        fmcats += t + ", ";
-      }
-      fmcats += "]";
+      fmcats += "\ncategories: [" + cats.join(", ") + "]";
     }
     const fm = `---
 layout: post
@@ -129,11 +119,17 @@ date: ${date}
 title: "${title}"${fmtags}${fmcats}
 ---
 `;
+
+    // notion -> markdown
     const mdblocks = await n2m.pageToMarkdown(id);
-    let md = n2m.toMarkdownString(mdblocks)["parent"];
-    if (md === "") {
+    const { parent } = n2m.toMarkdownString(mdblocks) || {};
+    let md = parent || "";
+
+    if (!md) {
+      console.log(`Skipping page ${title} (${id}) because it returned empty markdown`);
       continue;
     }
+
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 

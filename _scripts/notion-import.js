@@ -4,16 +4,18 @@ const moment = require("moment");
 const path = require("path");
 const fs = require("fs");
 const axios = require("axios");
+// or
+// import {NotionToMarkdown} from "notion-to-md";
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
 function escapeCodeBlock(body) {
-  const regex = /```([\s\S]*?)```/g
+  const regex = /```([\s\S]*?)```/g;
   return body.replace(regex, function (match, htmlBlock) {
-    return "{% raw %}\n```\n" + htmlBlock + "\n```\n{% endraw %}";
-  })
+    return "\n{% raw %}\n```" + htmlBlock.trim() + "\n```\n{% endraw %}\n";
+  });
 }
 
 function replaceTitleOutsideRawBlocks(body) {
@@ -48,7 +50,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
   let response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "배포",
+      property: "공개",
       checkbox: {
         equals: true,
       },
@@ -62,7 +64,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       database_id: databaseId,
       start_cursor: nextCursor,
       filter: {
-        property: "배포",
+        property: "공개",
         checkbox: {
           equals: true,
         },
@@ -102,55 +104,46 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       if (n) {
         cats.push(n);
       }
-    } 
+    }
+
     // frontmatter
     let fmtags = "";
     let fmcats = "";
-    let fmassrtmnt = "";
     if (tags.length > 0) {
-      fmtags += "[";
+      fmtags += "\ntags: [";
       for (const t of tags) {
         fmtags += t + ", ";
       }
       fmtags += "]";
     }
-
-    if (assrtmnt.length > 0) {
-      fmassrtmnt += "[";
-      for (const t of assrtmnt) {
-        fmassrtmnt += t ;
+    if (cats.length > 0) {
+      fmcats += "\ncategories: [";
+      for (const t of cats) {
+        fmcats += t + ", ";
       }
-      fmassrtmnt += "]";
+      fmcats += "]";
     }
     const fm = `---
-title: "${title}"
-excerpt: ""
-header: ""
-
-categories:
-    - ${fmcats}
-tags:
-    - ${fmtags}
-last_modified_at: ${date}
+layout: post
+date: ${date}
+title: "${title}"${fmtags}${fmcats}
 ---
-<br><br>
 `;
     const mdblocks = await n2m.pageToMarkdown(id);
-    let body = n2m.toMarkdownString(mdblocks)["parent"];
-    if (body === "") {
+    let md = n2m.toMarkdownString(mdblocks)["parent"];
+    if (md === "") {
       continue;
     }
-    body = escapeCodeBlock(body);
-    body = replaceTitleOutsideRawBlocks(body);
+    md = escapeCodeBlock(md);
+    md = replaceTitleOutsideRawBlocks(md);
 
-    const ftitle = `${date}-${title.replaceAll(" ", "_")}.md`;
+    const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
     let index = 0;
-    let edited_md = body.replace(
+    let edited_md = md.replace(
       /!\[(.*?)\]\((.*?)\)/g,
       function (match, p1, p2, p3) {
-        // const dirname = path.join("assets/img", ftitle);
-        const dirname = path.join("upload", ftitle);
+        const dirname = path.join("assets/img", ftitle);
         if (!fs.existsSync(dirname)) {
           fs.mkdirSync(dirname, { recursive: true });
         }

@@ -80,7 +80,7 @@ jobs:
       - name: Test site
         run: |
           # 최신 html-proofer 옵션 적용: --allow-hash-href
-          bundle exec htmlproofer _site --disable-external --check-html
+          bundle exec htmlproofer _site --disable-external --check-html --allow-hash-href
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3

@@ -21,9 +21,9 @@ MAN (Metropolita Area Network)
 - 도시권 통신망
 - 필요기술 : DSL전화망, 케이블 TV네트워크를 통한 인터넷 서비스 제공 등
 - 제한 : 50km 거리 제한
-- DQDB형
 
 WAN (Wide Area Network)
 
 - 광역 통신망을 의미하며 두 개 이상의 LAN들이 연결된 네트워크
 - 지역, 국가, 세상 범위까지 구성된 지리적 거리/장소를 넘나드는 네트워크
+- DQDB형

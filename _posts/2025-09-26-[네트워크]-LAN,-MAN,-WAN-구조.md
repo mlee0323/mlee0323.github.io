@@ -18,7 +18,7 @@ LAN (Local Area Network)
 
 MAN (Metropolita Area Network)
 
-- 도시권 통신망
+	- 도시권 통신망
 - 필요기술 : DSL전화망, 케이블 TV네트워크를 통한 인터넷 서비스 제공 등
 - 제한 : 50km 거리 제한
 

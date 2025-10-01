@@ -3,7 +3,7 @@ layout: post
 date: 2025-09-26
 title: "[네트워크] LAN, MAN, WAN 구조"
 tags: [MZC]
-categories: [Network, CS]
+categories: [Network]
 ---
 
 LAN (Local Area Network)

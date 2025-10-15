@@ -13,8 +13,15 @@ LAN (Local Area Network)
 - 제한 : 10km
 - 버스형
 	- 데이터 충동 가능
+	- 
+
+	![0](/assets/img/2025-09-26-[네트워크]-LAN,-MAN,-WAN-구조.md/0.png)_image.png_
+
 - 링형
 	- 불필요한 노드들까지 거칠 수 있음
+
+![1](/assets/img/2025-09-26-[네트워크]-LAN,-MAN,-WAN-구조.md/1.png)_image.png_
+
 
 MAN (Metropolita Area Network)
 
@@ -27,3 +34,6 @@ WAN (Wide Area Network)
 - 광역 통신망을 의미하며 두 개 이상의 LAN들이 연결된 네트워크
 - 지역, 국가, 세상 범위까지 구성된 지리적 거리/장소를 넘나드는 네트워크
 - DQDB형
+
+![2](/assets/img/2025-09-26-[네트워크]-LAN,-MAN,-WAN-구조.md/2.png)_image.png_
+

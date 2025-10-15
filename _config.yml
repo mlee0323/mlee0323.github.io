@@ -16,7 +16,7 @@ timezone:
 
 title: Lee # the main title
 
-tagline: Lee's DevBlog # it will display as the sub-title
+tagline: 공부 정리용 블로그 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.

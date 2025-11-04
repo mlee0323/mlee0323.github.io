@@ -72,10 +72,16 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
 
-      - name: Install nzip run
-        run : | 
+      - name: Install system packages for building gems
+        run: |
           sudo apt-get update
-          sudo apt-get install -y unzip tar xz-utils build-essential libstdc++6 ca-certificates
+          sudo apt-get install -y unzip tar xz-utils build-essential libstdc++6 ca-certificates pkg-config libffi-dev libssl-dev zlib1g-dev
+
+      - name: Clean bundle cache
+        run: rm -rf vendor/bundle
+
+      - name: Bundle install
+        run: bundle config set --local deployment 'true' && bundle install --jobs 4 --retry 3 --path vendor/bundle
 
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"

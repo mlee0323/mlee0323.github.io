@@ -72,6 +72,11 @@ jobs:
           ruby-version: '3.1'
           bundler-cache: true
 
+      - name: Install nzip run
+        run : | 
+          sudo apt-get update
+          sudo apt-get install -y unzip tar xz-utils build-essential libstdc++6 ca-certificates
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:

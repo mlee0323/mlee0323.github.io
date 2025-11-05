@@ -2,8 +2,8 @@
 layout: post
 date: 2025-01-19
 title: "[DB] RDB vs NoSQL"
-tags: [Database, Development]
-categories: [CS, Database]
+tags: [Database]
+categories: [Database]
 ---
 
 

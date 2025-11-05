@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 gem "jekyll-theme-chirpy", "~> 6.5", ">= 6.5.5"
-
+gem "jekyll-sass-converter", "~> 2.0"
 gem "html-proofer", "~> 3.19.0"
 
 

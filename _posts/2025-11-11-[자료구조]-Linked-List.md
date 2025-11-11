@@ -17,3 +17,6 @@ categories: [Data Structure]
 
 - Time : O(n)
 - Space : O(1)
+
+관련 풀이 :[ [코테] 21. Merge Two Sorted Lists](https://mlee0323.github.io/posts/%EC%BD%94%ED%85%8C-21.-Merge-Two-Sorted-Lists/)
+

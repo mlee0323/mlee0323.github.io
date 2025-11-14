@@ -104,26 +104,42 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       }
     }
 
-    let fmdifficulty = ""; // 난이도 문자열
+let fmdifficulty = ""; // 난이도 문자열
     let fmretest = "";     // Retest 문자열
 
     // 1. cats 배열에 'C.Test'가 포함되어 있는지 확인
     const isCTest = cats.includes("C.Test");
 
     if (isCTest) {
-      // 2. 'C.Test'가 맞다면, '난이도' 속성을 읽음 (선택 타입 가정)
-      let pDifficulty = r.properties?.["난이도"]?.["select"]?.["name"];
-      if (pDifficulty) {
-        fmdifficulty = `\ndifficulty: ${pDifficulty}`;
+      // 2. 'C.Test'가 맞다면, '난이도' 속성을 읽음 (multi_select)
+      let difficulties = [];
+      let pDifficulties = r.properties?.["난이도"]?.["multi_select"] || [];
+      for (const t of pDifficulties) {
+        const n = t?.["name"];
+        if (n) {
+          difficulties.push(n); // 배열에 추가
+        }
+      }
+      // Jekyll 머리말 형식으로 변환
+      if (difficulties.length > 0) {
+        fmdifficulty = "\ndifficulty: [" + difficulties.join(", ") + "]";
       }
 
-      // 3. 'C.Test'가 맞다면, 'Retest' 속성을 읽음 (체크박스 타입 가정)
-      let pRetest = r.properties?.["Retest"]?.["checkbox"]; // true 또는 false
-      if (pRetest != null) { // 속성이 존재하고 값이 null이 아니면
-        fmretest = `\nretest: ${pRetest}`; // "retest: true" 또는 "retest: false"
+      // 3. 'C.Test'가 맞다면, 'Retest' 속성을 읽음 (multi_select)
+      let retests = [];
+      let pRetests = r.properties?.["Retest"]?.["multi_select"] || [];
+      for (const t of pRetests) {
+        const n = t?.["name"];
+        if (n) {
+          retests.push(n); // 배열에 추가
+        }
+      }
+      // Jekyll 머리말 형식으로 변환
+      if (retests.length > 0) {
+        fmretest = "\nretest: [" + retests.join(", ") + "]";
       }
     }
-
+    
     // frontmatter
     let fmtags = "";
     let fmcats = "";

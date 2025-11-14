@@ -1,12 +1,12 @@
 ---
 layout: default
 panel_includes:
-  - toc
+  - toc
 tail_includes:
-  - related-posts
-  - post-nav
+  - related-posts
+  - post-nav
 script_includes:
-  - comment
+  - comment
 ---
 
 {% include lang.html %}
@@ -177,7 +177,7 @@ script_includes:
           {% capture _replacement %}
         <a href="{{ site.data.locales[lang].copyright.license.link }}">
           {{ site.data.locales[lang].copyright.license.name }}
-  T   </a>
+        </a>
         {% endcapture %}
 
           {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}

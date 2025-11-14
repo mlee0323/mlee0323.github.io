@@ -104,6 +104,26 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
       }
     }
 
+    let fmdifficulty = ""; // 난이도 문자열
+    let fmretest = "";     // Retest 문자열
+
+    // 1. cats 배열에 'C.Test'가 포함되어 있는지 확인
+    const isCTest = cats.includes("C.Test");
+
+    if (isCTest) {
+      // 2. 'C.Test'가 맞다면, '난이도' 속성을 읽음 (선택 타입 가정)
+      let pDifficulty = r.properties?.["난이도"]?.["select"]?.["name"];
+      if (pDifficulty) {
+        fmdifficulty = `\ndifficulty: ${pDifficulty}`;
+      }
+
+      // 3. 'C.Test'가 맞다면, 'Retest' 속성을 읽음 (체크박스 타입 가정)
+      let pRetest = r.properties?.["Retest"]?.["checkbox"]; // true 또는 false
+      if (pRetest != null) { // 속성이 존재하고 값이 null이 아니면
+        fmretest = `\nretest: ${pRetest}`; // "retest: true" 또는 "retest: false"
+      }
+    }
+
     // frontmatter
     let fmtags = "";
     let fmcats = "";
@@ -116,7 +136,7 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
     const fm = `---
 layout: post
 date: ${date}
-title: "${title}"${fmtags}${fmcats}
+title: "${title}"${fmtags}${fmcats}${fmdifficulty}${fmretest}
 ---
 `;
 

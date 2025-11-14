@@ -125,18 +125,12 @@ let fmdifficulty = ""; // 난이도 문자열
         fmdifficulty = "\ndifficulty: [" + difficulties.join(", ") + "]";
       }
 
-      // 3. 'C.Test'가 맞다면, 'Retest' 속성을 읽음 (multi_select)
-      let retests = [];
-      let pRetests = r.properties?.["Retest"]?.["multi_select"] || [];
-      for (const t of pRetests) {
-        const n = t?.["name"];
-        if (n) {
-          retests.push(n); // 배열에 추가
-        }
-      }
-      // Jekyll 머리말 형식으로 변환
-      if (retests.length > 0) {
-        fmretest = "\nretest: [" + retests.join(", ") + "]";
+     let pRetestDate = r.properties?.["Retest"]?.["date"]?.["start"];
+      if (pRetestDate) {
+        // moment.js를 사용해 YYYY-MM-DD 형식으로 지정
+        let retestDate = moment(pRetestDate).format("YYYY-MM-DD");
+        // YAML에 날짜 문자열로 추가 (키 이름을 retest_date로 변경)
+        fmretest = `\nretest_date: "${retestDate}"`;
       }
     }
     

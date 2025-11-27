@@ -7,7 +7,7 @@ categories: [Algorithm]
 ---
 
 
-## 이진탐색 (Binary Search)란?
+## 이진탐색이란? (Binary Search)
 
 
 검색이 매우 빠른 알고리즘이다. 다만, 이진탐색이 가능하기 위해서는 데이터가 sorted된 상태여야 한다.

@@ -54,6 +54,7 @@ categories: [K8s]
 	- 쿠버네티스에서 생성하고 관리하는 가장 작은 배포 단위
 	- 하나 이상의 컨테이너 그룹
 	- 스토리지/네트워크 공유
+	- IP는 pod에 부여되기 때문에 내부의 컨테이너는 모두 동일한 IP, 포트로 구
 - Deployment
 	- Pod와 ReplicaSet에 대한 declarative updates 제공
 	- Rolling update, rollback, scaling, pausing

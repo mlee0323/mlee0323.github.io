@@ -163,6 +163,10 @@ title: "${title}"${fmtags}${fmcats}${fmdifficulty}${fmretest}
     md = escapeCodeBlock(md);
     md = replaceTitleOutsideRawBlocks(md);
 
+    // HTML-Proofer 대응: 인라인 코드나 코드 블록에 감싸이지 않은 <한글/띄어쓰기 등> 형태의 꺾쇠를 &lt; &gt;로 치환
+    // (완벽한 파싱은 어려우나, 흔히 실수하는 <이름> 등의 패턴을 커버하기 위함)
+    md = md.replace(/<([^>]+[가-힣\s]+[^>]*)>/g, '&lt;$1&gt;');
+
     const ftitle = `${date}-${title.replaceAll(" ", "-")}.md`;
 
     let index = 0;

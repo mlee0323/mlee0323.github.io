@@ -2,7 +2,7 @@ name: "Build and Deploy"
 on:
   repository_dispatch:
     types: [RUN_WORKFLOW_DISPATCH]
-      
+
 permissions:
   contents: write
   pages: write
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-    
+
       - name: Clean Directory
         run: |
           for file in assets/img/*
@@ -29,7 +29,7 @@ jobs:
               fi
           done
           rm -rf _posts/*
-      
+
       - uses: actions/setup-node@v4
         with:
           node-version: "18"
@@ -41,6 +41,9 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           DATABASE_ID: ${{ secrets.DATABASE_ID }}
 
+      - name: Pull latest changes before commit
+        run: git pull --rebase origin main
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,12 +53,12 @@ jobs:
           commit_user_name: mlee0323
           commit_user_email: minseoklee0323@gmail.com
           commit_author: mlee0323 <minseoklee0323@gmail.com>
- 
+
   build:
     needs: importer
     runs-on: ubuntu-latest
 
-    steps:           
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -69,7 +72,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: "3.1"
           bundler-cache: true
 
       - name: Install system packages for building gems

@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2026-04-11
+date: 2026-04-05
 title: "[AWS] ALB + Ingress의 사용 이유와 NLB 차이점"
 tags: [Study]
 categories: [AWS]
